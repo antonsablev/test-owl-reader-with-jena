@@ -10,6 +10,7 @@ import org.apache.jena.util.iterator.ExtendedIterator;
 import org.example.exception.CsvFileException;
 import org.example.exception.ItemNotFoundException;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -23,6 +24,7 @@ public class CsvWriterService {
     public void write(String writeUri) {
         OntClass headClass = model.getOntClass(HEAD_CLASS_URI);
         if (headClass != null) {
+            checkFile(writeUri);
             ExtendedIterator<OntClass> subclasses = headClass.listSubClasses(true);
             try (FileWriter writer = new FileWriter(writeUri)) {
                 createDocumentHeader(writer);
@@ -36,6 +38,26 @@ public class CsvWriterService {
             }
         } else {
             throw new ItemNotFoundException("Клас не знайдено: " + HEAD_CLASS_URI);
+        }
+    }
+
+    private void checkFile(String writeUri) {
+        File file = new File(writeUri);
+        try {
+            if (!file.exists()) {
+                File parentDir = file.getParentFile();
+                if (parentDir != null && !parentDir.exists() && !parentDir.mkdirs()) {
+                    throw new CsvFileException("Can't create directories for csv file: " + parentDir.getAbsolutePath());
+                }
+                if (file.createNewFile()) {
+                    System.out.println("File created: " + writeUri);
+                } else {
+                    System.out.println("File not created: " + writeUri);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new CsvFileException("Can't create csv file: " + e.getMessage());
         }
     }
 
