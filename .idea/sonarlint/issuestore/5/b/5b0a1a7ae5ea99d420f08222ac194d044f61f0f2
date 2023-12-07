@@ -1,0 +1,8 @@
+
+g	java:S112$"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8²ùîÄ1
+H
+java:S1874"+Remove this use of "get"; it is deprecated.(É‚’Ñ8••îÄ1
+F
+java:S1481")Remove this unused "read" local variable.(Èæõ8‰õÄ1
+R
+java:S1481"5Remove this unused "foodProductClass" local variable.(úÏÍ8òÎûÄ1
