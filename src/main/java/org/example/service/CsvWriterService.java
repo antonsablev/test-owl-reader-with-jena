@@ -57,7 +57,7 @@ public class CsvWriterService {
             OntClass popped = parentClasses.pop();
             String label = popped.getLabel(EN).replaceAll(COMA, "");
             line.append(label);
-            writeUri(popped, line, level- START_POSITION);
+            writeUri(popped, line, level - START_POSITION);
 
             level = level + 1;
             for (int i = 1; i < level; i++) {
