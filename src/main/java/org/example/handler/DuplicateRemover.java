@@ -2,13 +2,14 @@ package org.example.handler;
 
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
+
 import java.util.*;
 
 import static org.example.utils.StaticVariables.*;
 
 public class DuplicateRemover {
 
-    public void runRemover(Stack<OntClass> ontClassStack, OntModel ontModel, OntClass headClass){
+    public void runRemover(Stack<OntClass> ontClassStack, OntModel ontModel, OntClass headClass) {
         String duplicateUri;
         removeElementsAfterHead(ontClassStack, headClass);
         do {
@@ -18,6 +19,22 @@ public class DuplicateRemover {
             }
         } while (duplicateUri != null);
         removeElementsFromExtraHierarchy(ontClassStack);
+
+    }
+
+    private void removeElementsFromExtraHierarchy(Stack<OntClass> ontClassStack) {
+        Stack<OntClass> tempStack = new Stack<>();
+        while (!ontClassStack.isEmpty()) {
+            OntClass currentOntClass = ontClassStack.pop();
+            if (shouldRemove(currentOntClass)) {
+
+            } else {
+                tempStack.push(currentOntClass);
+            }
+        }
+        while (!tempStack.isEmpty()) {
+            ontClassStack.push(tempStack.pop());
+        }
         removeContinuant(ontClassStack);
     }
 
@@ -44,22 +61,6 @@ public class DuplicateRemover {
         }
     }
 
-
-    private void removeElementsFromExtraHierarchy(Stack<OntClass> ontClassStack) {
-        Stack<OntClass> tempStack = new Stack<>();
-        while (!ontClassStack.isEmpty()) {
-            OntClass currentOntClass = ontClassStack.pop();
-            if (shouldRemove(currentOntClass)) {
-
-            } else {
-                tempStack.push(currentOntClass);
-            }
-        }
-        while (!tempStack.isEmpty()) {
-            ontClassStack.push(tempStack.pop());
-        }
-    }
-
     private boolean shouldRemove(OntClass ontClass) {
         String label = (ontClass.getLabel(EN) != null) ? ontClass.getLabel(EN).trim() : null;
         return THING.equals(label) || MATERIAL_ENTITY.equals(label) || label == null || HEAD_CLASS_URI.equals(ontClass.getURI());
@@ -69,7 +70,7 @@ public class DuplicateRemover {
         while (!ontClassStack.isEmpty()) {
             OntClass currentOntClass = ontClassStack.pop();
             String className = currentOntClass.getURI();
-            if (className !=null && className.equals(ontClassToFind.getURI())) {
+            if (className != null && className.equals(ontClassToFind.getURI())) {
                 ontClassStack.push(currentOntClass);
                 break;
             }
@@ -106,6 +107,7 @@ public class DuplicateRemover {
 
 
     }
+
     private String findDuplicateUri(Stack<OntClass> ontClassStack) {
         Set<String> seen = new HashSet<>();
         for (OntClass ontClass : ontClassStack) {
