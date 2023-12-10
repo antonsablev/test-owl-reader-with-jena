@@ -1,18 +1,17 @@
-package org.example.service;
+package org.example.handler;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
-import org.example.handler.DuplicateRemover;
 
 import java.util.Stack;
 
 import static org.example.utils.StaticVariables.HEAD_CLASS_URI;
 
 @RequiredArgsConstructor
-public class OwlClassesService {
+public class OwlParentClassesHandler {
 
-    private final DuplicateRemover duplicateRemover;
+    private final DuplicateRemoverHandler duplicateRemover;
     private final OntModel model;
 
     public Stack<OntClass> getParentClasses(OntClass ontClass) {

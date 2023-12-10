@@ -3,6 +3,7 @@ package org.example.service;
 import lombok.RequiredArgsConstructor;
 import org.apache.jena.ontology.OntClass;
 import org.example.exception.CsvFileException;
+import org.example.handler.OwlParentClassesHandler;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -14,8 +15,8 @@ import static org.example.utils.StaticVariables.*;
 
 @RequiredArgsConstructor
 public class CsvWriterService {
-    private final OwlReader reader;
-    private final OwlClassesService classesService;
+    private final OwlReaderService reader;
+    private final OwlParentClassesHandler classesService;
 
 
     public void write(String writeUri, Set<OntClass> read) {

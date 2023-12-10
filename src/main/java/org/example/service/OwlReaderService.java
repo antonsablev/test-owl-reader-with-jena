@@ -15,8 +15,7 @@ import java.util.Set;
 import static org.example.utils.StaticVariables.*;
 
 @RequiredArgsConstructor
-public class OwlReader {
-
+public class OwlReaderService {
     private final OntModel model;
 
     public Set<OntClass> read() {
