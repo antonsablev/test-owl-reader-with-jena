@@ -17,4 +17,6 @@ public class StaticVariables {
     public static final String CONTINUANT = "continuant";
     public static final String THING = "Thing";
     public static final String MATERIAL_ENTITY = "material entity";
+    public static final String ONTOLOGY_URL = "http://purl.obolibrary.org/obo/foodon.owl";
+    public static final String CSV_RESULT_URL = "csv/csv-result.csv";
 }
