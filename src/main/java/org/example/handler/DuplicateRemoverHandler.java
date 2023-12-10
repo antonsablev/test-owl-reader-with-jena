@@ -7,7 +7,7 @@ import java.util.*;
 
 import static org.example.utils.StaticVariables.*;
 
-public class DuplicateRemover {
+public class DuplicateRemoverHandler {
 
     public void runRemover(Stack<OntClass> ontClassStack, OntModel ontModel, OntClass headClass) {
         String duplicateUri;

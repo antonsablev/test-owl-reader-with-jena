@@ -96,16 +96,12 @@ food product by organism,,,,,,,,,,,,,,FOODON_00002381
 ,,,,,,,,
 food product by organism,,,,,,,,,,,,,,FOODON_00002381
 ,plant food product,,,,,,,,,,,,,FOODON_00001015
-,,plant root food product,,,,,,,,,,,,FOODON_00001147
-,,,organism material,,,,,,,,,,,FOODON_03420116
-,,,,plant material,,,,,,,,,,FOODON_00004331
-,,,,,plant piece,,,,,,,,,FOODON_00004333
-,,,,,,root stem leaf or flower,,,,,,,,FOODON_03420148
-,,,,,,,plant above surface excluding fruit and seed,,,,,,,FOODON_03420144
-,,,,,,,,spear or shoot,,,,,,FOODON_03420186
-,,,,,,,,,taro shoot,,,,,http://purl.obolibrary.org/obo/FOODON_03000138
-,,,,,,,,,,taro shoot (raw),,,,http://purl.obolibrary.org/obo/FOODON_03000139
-,,,,,,,,,,,
+,,vegetable food product,,,,,,,,,,,,FOODON_00001261
+,,,plant root vegetable food product,,,,,,,,,,,FOODON_00002150
+,,,,taro food product,,,,,,,,,,FOODON_00002310
+,,,,,taro shoot,,,,,,,,,http://purl.obolibrary.org/obo/FOODON_03000138
+,,,,,,taro shoot (raw),,,,,,,,http://purl.obolibrary.org/obo/FOODON_03000139
+,,,,,,,
 food product by organism,,,,,,,,,,,,,,FOODON_00002381
 ,plant food product,,,,,,,,,,,,,FOODON_00001015
 ,,botanical fruit food product,,,,,,,,,,,,FOODON_00001262
@@ -494,15 +490,11 @@ food material by characteristic,,,,,,,,,,,,,,FOODON_00002454
 ,,,,,,
 food product by organism,,,,,,,,,,,,,,FOODON_00002381
 ,plant food product,,,,,,,,,,,,,FOODON_00001015
-,,plant root food product,,,,,,,,,,,,FOODON_00001147
-,,,organism material,,,,,,,,,,,FOODON_03420116
-,,,,plant material,,,,,,,,,,FOODON_00004331
-,,,,,plant piece,,,,,,,,,FOODON_00004333
-,,,,,,root stem leaf or flower,,,,,,,,FOODON_03420148
-,,,,,,,plant above surface excluding fruit and seed,,,,,,,FOODON_03420144
-,,,,,,,,spear or shoot,,,,,,FOODON_03420186
-,,,,,,,,,taro shoot,,,,,http://purl.obolibrary.org/obo/FOODON_03000138
-,,,,,,,,,,
+,,vegetable food product,,,,,,,,,,,,FOODON_00001261
+,,,plant root vegetable food product,,,,,,,,,,,FOODON_00002150
+,,,,taro food product,,,,,,,,,,FOODON_00002310
+,,,,,taro shoot,,,,,,,,,http://purl.obolibrary.org/obo/FOODON_03000138
+,,,,,,
 food product by meal type,,,,,,,,,,,,,,FOODON_00002373
 ,beverage food product,,,,,,,,,,,,,FOODON_03301977
 ,,fermented beverage,,,,,,,,,,,,FOODON_00001094
