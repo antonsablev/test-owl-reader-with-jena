@@ -8,39 +8,29 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.example.exception.ItemNotFoundException;
+import org.example.handler.OwlParentClassesHandler;
+import org.example.handler.SorterHandler;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static org.example.utils.StaticVariables.*;
 
 @RequiredArgsConstructor
 public class OwlReaderService {
     private final OntModel model;
+    private final OwlParentClassesHandler parentClassesHandler;
 
-    public Set<OntClass> read() {
+    public List<Stack<OntClass>> read() {
         OntClass headClass = model.getOntClass(HEAD_CLASS_URI);
         if (headClass != null) {
-            return createUniqueSet(headClass);
+            return createList(headClass);
         } else {
             throw new ItemNotFoundException("Can't find head class: " + HEAD_CLASS_URI);
         }
     }
 
-    public String getWikipediaLink(OntClass ontClass) {
-        Resource foodProductResource = model.getResource(ontClass.getURI());
-        StmtIterator stmtIterator = foodProductResource.listProperties();
-        while (stmtIterator.hasNext()) {
-            Statement statement = stmtIterator.next();
-            if (WIKI_PROPERTY_NAME.equals(statement.getPredicate().getLocalName())) {
-                return statement.getObject().toString();
-            }
-        }
-        return null;
-    }
-
     private Set<OntClass> createUniqueSet(OntClass ontClass) {
-        Set<OntClass> uniqueClasses = new HashSet<>();
+        Set<OntClass> uniqueClasses = new LinkedHashSet<>();
         String wikiLink = getWikipediaLink(ontClass);
 
         if (wikiLink != null && wikiLink.contains(WIKI_LINK)) {
@@ -54,5 +44,32 @@ public class OwlReaderService {
             uniqueClasses.addAll(subclassesWithWikiLink);
         }
         return uniqueClasses;
+    }
+
+    public List<Stack<OntClass>> createList(OntClass headClass) {
+        List<Stack<OntClass>> parentsList = new ArrayList<>();
+        Set<OntClass> unicSet = createUniqueSet(headClass);
+        for (OntClass ontClass : unicSet) {
+            Stack<OntClass> parentClasses = parentClassesHandler.getParentClasses(ontClass);
+            parentsList.add(parentClasses);
+        }
+        return sortList(parentsList);
+    }
+
+    private List<Stack<OntClass>> sortList(List<Stack<OntClass>> list) {
+        list.sort(new SorterHandler());
+        return list;
+    }
+
+    public String getWikipediaLink(OntClass ontClass) {
+        Resource foodProductResource = model.getResource(ontClass.getURI());
+        StmtIterator stmtIterator = foodProductResource.listProperties();
+        while (stmtIterator.hasNext()) {
+            Statement statement = stmtIterator.next();
+            if (WIKI_PROPERTY_NAME.equals(statement.getPredicate().getLocalName())) {
+                return statement.getObject().toString();
+            }
+        }
+        return null;
     }
 }
