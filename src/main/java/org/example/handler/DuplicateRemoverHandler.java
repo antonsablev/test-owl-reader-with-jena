@@ -8,6 +8,7 @@ import java.util.*;
 import static org.example.utils.StaticVariables.*;
 
 public class DuplicateRemoverHandler {
+    String previousLabel;
 
     public void runRemover(Stack<OntClass> ontClassStack, OntModel ontModel, OntClass headClass) {
         String duplicateUri;
@@ -19,7 +20,6 @@ public class DuplicateRemoverHandler {
             }
         } while (duplicateUri != null);
         removeElementsFromExtraHierarchy(ontClassStack);
-
     }
 
     private void removeElementsFromExtraHierarchy(Stack<OntClass> ontClassStack) {

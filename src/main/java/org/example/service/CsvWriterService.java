@@ -17,14 +17,15 @@ import static org.example.utils.StaticVariables.*;
 @RequiredArgsConstructor
 public class CsvWriterService {
     private final OwlReaderService reader;
-
+    private int currentLevel;
+    private String previousClassLabel;
 
     public void write(String writeUri, List<Stack<OntClass>> read) {
         checkFile(writeUri);
         try (FileWriter writer = new FileWriter(writeUri)) {
             createDocumentHeader(writer);
             for (Stack<OntClass> eachStack : read) {
-                writeSubclassToCsv(writer, eachStack, START_POSITION);
+                writeSubclassToCsv(writer, eachStack, currentLevel);
             }
 
             System.out.println(FILE_CREATED_MESSAGE + writeUri);
@@ -53,22 +54,47 @@ public class CsvWriterService {
         writer.append(WIKI_HEAD_TEXT);
     }
 
+
     private void writeSubclassToCsv(FileWriter writer, Stack<OntClass> parentClasses, int level) throws IOException {
         StringBuilder line = new StringBuilder();
+        boolean hasSameParent = checkParentCategory(parentClasses);
+            if (hasSameParent) {
+                while (parentClasses.size() > 1) {
+                    parentClasses.pop();
+                }
+            } else {
+                writer.append(LINE_BREAK);
+                level = START_POSITION;
+            }
 
         while (!parentClasses.isEmpty()) {
             OntClass popped = parentClasses.pop();
             String label = popped.getLabel(EN).replaceAll(COMA, "");
             line.append(label);
             writeUri(popped, line, level - START_POSITION);
-
-            level = level + 1;
-            for (int i = 1; i < level; i++) {
+            if (!hasSameParent && !parentClasses.isEmpty()) {
+                level = level + 1;
+            }
+            for (int i = START_POSITION; i < level; i++) {
                 line.append(COMA);
             }
+            currentLevel = level;
         }
+
         writer.append(line.toString());
-        writer.append(LINE_BREAK);
+    }
+
+    private boolean checkParentCategory(Stack<OntClass> parentClasses) {
+        if (parentClasses.size() > 2) {
+            OntClass ontClass = parentClasses.get(1);
+            String currentLabel = ontClass.getLabel(null);
+            if (currentLabel.equals(previousClassLabel)) {
+                previousClassLabel = currentLabel;
+                return true;
+            }
+            previousClassLabel = currentLabel;
+        }
+        return false;
     }
 
     private void writeUri(OntClass ontClass, StringBuilder line, int level) {
