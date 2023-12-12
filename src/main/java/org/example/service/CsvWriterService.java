@@ -17,10 +17,8 @@ import static org.example.utils.StaticVariables.*;
 @RequiredArgsConstructor
 public class CsvWriterService {
     private final OwlReaderService reader;
-
-    private int currentLevel = 1;
-    private String prevCat;
-    private boolean hasSameParent = false;
+    private int currentLevel;
+    private String previousClassLabel;
 
     public void write(String writeUri, List<Stack<OntClass>> read) {
         checkFile(writeUri);
@@ -59,7 +57,7 @@ public class CsvWriterService {
 
     private void writeSubclassToCsv(FileWriter writer, Stack<OntClass> parentClasses, int level) throws IOException {
         StringBuilder line = new StringBuilder();
-        hasSameParent = checkParentCategory(parentClasses);
+        boolean hasSameParent = checkParentCategory(parentClasses);
             if (hasSameParent) {
                 while (parentClasses.size() > 1) {
                     parentClasses.pop();
@@ -90,11 +88,11 @@ public class CsvWriterService {
         if (parentClasses.size() > 2) {
             OntClass ontClass = parentClasses.get(1);
             String currentLabel = ontClass.getLabel(null);
-            if (currentLabel.equals(prevCat)) {
-                prevCat = currentLabel;
+            if (currentLabel.equals(previousClassLabel)) {
+                previousClassLabel = currentLabel;
                 return true;
             }
-            prevCat = currentLabel;
+            previousClassLabel = currentLabel;
         }
         return false;
     }

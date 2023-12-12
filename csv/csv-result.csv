@@ -2865,11 +2865,6 @@ food product by organism,,,,,,,,,,,,,,FOODON_00002381
 ,,,
 food product by organism,,,,,,,,,,,,,,FOODON_00002381
 ,plant food product,,,,,,,,,,,,,FOODON_00001015
-,,plant inflorescence food product,,,,,,,,,,,,FOODON_00001166
-,,,amaranth leaf,,,,,,,,,,,http://purl.obolibrary.org/obo/FOODON_03000026,https://en.wikipedia.org/wiki/Amaranth
-,,,
-food product by organism,,,,,,,,,,,,,,FOODON_00002381
-,plant food product,,,,,,,,,,,,,FOODON_00001015
 ,,roselle food product,,,,,,,,,,,,FOODON_00003092
 ,,,roselle calyx,,,,,,,,,,,http://purl.obolibrary.org/obo/FOODON_00004243,https://en.wikipedia.org/wiki/Roselle_(plant)
 ,,,
@@ -2879,6 +2874,11 @@ food product by organism,,,,,,,,,,,,,,FOODON_00002381
 ,,,roselle calyx,,,,,,,,,,,http://purl.obolibrary.org/obo/FOODON_00004243,https://en.wikipedia.org/wiki/Roselle_(plant)
 ,,,,roselle calyx (raw),,,,,,,,,,http://purl.obolibrary.org/obo/FOODON_00004244,https://en.wikipedia.org/wiki/Roselle_(plant)
 ,,,,
+food product by organism,,,,,,,,,,,,,,FOODON_00002381
+,plant food product,,,,,,,,,,,,,FOODON_00001015
+,,plant inflorescence food product,,,,,,,,,,,,FOODON_00001166
+,,,amaranth leaf,,,,,,,,,,,http://purl.obolibrary.org/obo/FOODON_03000026,https://en.wikipedia.org/wiki/Amaranth
+,,,
 food product by organism,,,,,,,,,,,,,,FOODON_00002381
 ,plant food product,,,,,,,,,,,,,FOODON_00001015
 ,,sorrel food product,,,,,,,,,,,,FOODON_00003093
