@@ -8,6 +8,7 @@ import org.example.handler.OwlParentClassesHandler;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
@@ -16,16 +17,16 @@ import static org.example.utils.StaticVariables.*;
 @RequiredArgsConstructor
 public class CsvWriterService {
     private final OwlReaderService reader;
-    private final OwlParentClassesHandler classesService;
 
 
-    public void write(String writeUri, Set<OntClass> read) {
+    public void write(String writeUri, List<Stack<OntClass>> read) {
         checkFile(writeUri);
         try (FileWriter writer = new FileWriter(writeUri)) {
             createDocumentHeader(writer);
-            for (OntClass subclass : read) {
-                writeSubclassToCsv(writer, subclass, START_POSITION);
+            for (Stack<OntClass> eachStack : read) {
+                writeSubclassToCsv(writer, eachStack, START_POSITION);
             }
+
             System.out.println(FILE_CREATED_MESSAGE + writeUri);
         } catch (IOException e) {
             throw new CsvFileException(CSV_ERROR_MESSAGE);
@@ -48,12 +49,13 @@ public class CsvWriterService {
         for (int i = START_POSITION; i < URI_POSITION; i++) {
             writer.append(i + LEVEL);
         }
-        writer.append(FOODON_URI_HEAD_TEXT);
+        writer.append(FOODON_URI_HEAD_TEXT).append(COMA);
+        writer.append(WIKI_HEAD_TEXT);
     }
 
-    private void writeSubclassToCsv(FileWriter writer, OntClass ontClass, int level) throws IOException {
+    private void writeSubclassToCsv(FileWriter writer, Stack<OntClass> parentClasses, int level) throws IOException {
         StringBuilder line = new StringBuilder();
-        Stack<OntClass> parentClasses = classesService.getParentClasses(ontClass);
+
         while (!parentClasses.isEmpty()) {
             OntClass popped = parentClasses.pop();
             String label = popped.getLabel(EN).replaceAll(COMA, "");
@@ -76,7 +78,13 @@ public class CsvWriterService {
             uri = ontClass.getURI();
         }
         setUriLevel(level, line);
-        line.append(uri).append(LINE_BREAK).toString();
+        line.append(uri);
+        if (wikiLink != null) {
+            line.append(COMA);
+            line.append(wikiLink);
+        }
+
+        line.append(LINE_BREAK).toString();
     }
 
     private void setUriLevel(int level, StringBuilder line) {

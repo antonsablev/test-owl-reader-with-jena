@@ -8,7 +8,8 @@ public class StaticVariables {
     public static final String CSV_ERROR_MESSAGE = "Error in working with CSV - Probably file is busy by other process";
     public static final String DIRECTORY_ERROR_MESSAGE = "Can't create directories for csv file: ";
     public static final String LEVEL = " Level,";
-    public static final String FOODON_URI_HEAD_TEXT = "FoodON URI\n";
+    public static final String FOODON_URI_HEAD_TEXT = "FoodON URI";
+    public static final String WIKI_HEAD_TEXT = "Wiki url\n";
     public static final String EN = "en";
     public static final int START_POSITION = 1;
     public static final int URI_POSITION = 15;
