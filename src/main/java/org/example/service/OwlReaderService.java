@@ -29,6 +29,16 @@ public class OwlReaderService {
         }
     }
 
+    public List<Stack<OntClass>> createList(OntClass headClass) {
+        List<Stack<OntClass>> parentsList = new ArrayList<>();
+        Set<OntClass> unicSet = createUniqueSet(headClass);
+        for (OntClass ontClass : unicSet) {
+            Stack<OntClass> parentClasses = parentClassesHandler.getParentClasses(ontClass);
+            parentsList.add(parentClasses);
+        }
+        return sortList(parentsList);
+    }
+
     private Set<OntClass> createUniqueSet(OntClass ontClass) {
         Set<OntClass> uniqueClasses = new LinkedHashSet<>();
         String wikiLink = getWikipediaLink(ontClass);
@@ -44,16 +54,6 @@ public class OwlReaderService {
             uniqueClasses.addAll(subclassesWithWikiLink);
         }
         return uniqueClasses;
-    }
-
-    public List<Stack<OntClass>> createList(OntClass headClass) {
-        List<Stack<OntClass>> parentsList = new ArrayList<>();
-        Set<OntClass> unicSet = createUniqueSet(headClass);
-        for (OntClass ontClass : unicSet) {
-            Stack<OntClass> parentClasses = parentClassesHandler.getParentClasses(ontClass);
-            parentsList.add(parentClasses);
-        }
-        return sortList(parentsList);
     }
 
     private List<Stack<OntClass>> sortList(List<Stack<OntClass>> list) {
