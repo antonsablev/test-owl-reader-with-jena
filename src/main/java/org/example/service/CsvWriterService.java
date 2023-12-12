@@ -48,7 +48,8 @@ public class CsvWriterService {
         for (int i = START_POSITION; i < URI_POSITION; i++) {
             writer.append(i + LEVEL);
         }
-        writer.append(FOODON_URI_HEAD_TEXT);
+        writer.append(FOODON_URI_HEAD_TEXT).append(COMA);
+        writer.append(WIKI_HEAD_TEXT);
     }
 
     private void writeSubclassToCsv(FileWriter writer, OntClass ontClass, int level) throws IOException {
@@ -76,7 +77,13 @@ public class CsvWriterService {
             uri = ontClass.getURI();
         }
         setUriLevel(level, line);
-        line.append(uri).append(LINE_BREAK).toString();
+        line.append(uri);
+        if (wikiLink != null) {
+            line.append(COMA);
+            line.append(wikiLink);
+        }
+
+        line.append(LINE_BREAK).toString();
     }
 
     private void setUriLevel(int level, StringBuilder line) {
